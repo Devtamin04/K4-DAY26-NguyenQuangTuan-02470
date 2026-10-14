@@ -95,6 +95,6 @@ Open http://localhost:8000 in your browser, select `weather_agent`, and ask abou
 
 Ảnh dưới đây cho thấy luồng chạy hoàn chỉnh: ADK Agent gọi `get_current_weather` thông qua `McpToolset` và trả lời từ dữ liệu WeatherAPI.
 
-![ADK Web gọi MCP Weather tool](screenshots/adk-weather-response.png)
+![ADK Web gọi MCP Weather tool](screenshots/04-adk-current.png)
 
 Xem thêm mô tả từng ảnh trong [`screenshots/README.md`](screenshots/README.md).
