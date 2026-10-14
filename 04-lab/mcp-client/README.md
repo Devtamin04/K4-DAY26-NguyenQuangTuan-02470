@@ -1,4 +1,4 @@
-# Weather Agent - Google ADK with MCP Server
+# Weather Agent - Google ADK, Ollama Cloud, and MCP Server
 
 AI agent built with **Google Agent Development Kit (ADK)** that uses tools from a local **MCP server** via Streamable HTTP transport.
 
@@ -40,7 +40,7 @@ AI agent built with **Google Agent Development Kit (ADK)** that uses tools from 
 
 ```bash
 cd ../mcp-server
-export WEATHERAPI_KEY="your_weatherapi_key"
+cp .env.example .env
 uv run python weather.py
 ```
 
@@ -49,9 +49,9 @@ uv run python weather.py
 ```bash
 cd mcp-client
 
-# Create .env file with your Google API key
-# Get free key from: https://aistudio.google.com/apikey
-echo "GOOGLE_API_KEY=your_google_api_key_here" > .env
+# Create a private .env file from the committed template.
+cp .env.example .env
+# Set OLLAMA_API_KEY in .env (never commit this file).
 ```
 
 ### 3. Install Dependencies
@@ -103,7 +103,11 @@ connection_params = StreamableHTTPConnectionParams(
 
 root_agent = Agent(
     name="weather_agent",
-    model="gemini-2.5-flash",
+    model=LiteLlm(
+        model="ollama_chat/gpt-oss:120b",
+        api_base="https://ollama.com",
+        api_key=os.environ["OLLAMA_API_KEY"],
+    ),
     tools=[weather_tools],
 )
 ```
@@ -130,9 +134,12 @@ Fix the connection and restart ADK web.
 
 ## Environment Variables
 
-Create `.env` file:
+Copy `.env.example` to `.env` and set your token:
 ```bash
-GOOGLE_API_KEY=your_gemini_api_key
+OLLAMA_API_KEY=your_ollama_api_key
+OLLAMA_MODEL=gpt-oss:120b
+OLLAMA_API_BASE=https://ollama.com
+MCP_SERVER_URL=http://localhost:8085/mcp
 ```
 
 ## Resources

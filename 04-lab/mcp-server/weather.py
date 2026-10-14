@@ -2,7 +2,12 @@ from typing import Any
 import asyncio
 import httpx
 import os
+from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
+
+# Enables local development with a gitignored mcp-server/.env file. Production
+# deployments still use the platform-provided WEATHERAPI_KEY environment variable.
+load_dotenv()
 
 # Initialize FastMCP server
 port = int(os.getenv("PORT", 8085))
@@ -139,14 +144,5 @@ print("✅ MCP server initialized with Streamable HTTP transport")
 print("🔧 Available tools: get_current_weather, get_forecast, health_check")
 
 if __name__ == "__main__":
-    import sys
-    
-    is_cloud_run = bool(os.getenv("PORT"))
-    is_standalone = len(sys.argv) == 1 and sys.stdin.isatty()
-    
-    if is_cloud_run or is_standalone:
-        print(f"🚀 Starting MCP server on http://0.0.0.0:{port}/mcp")
-        mcp.run(transport="streamable-http")
-    else:
-        print("Starting FastMCP server in stdio mode for local client", file=sys.stderr)
-        mcp.run()
+    print(f"🚀 Starting MCP server on http://0.0.0.0:{port}/mcp")
+    mcp.run(transport="streamable-http")

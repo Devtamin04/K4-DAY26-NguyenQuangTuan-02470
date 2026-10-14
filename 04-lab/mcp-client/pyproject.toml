@@ -5,8 +5,10 @@ description = "Weather Agent using Google ADK with remote MCP server on Cloud Ru
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "google-adk>=0.1.0",
-    "google-generativeai>=0.8.0",
+    "google-adk>=2.0.0",
+    # LiteLLM is the ADK adapter used for Ollama Cloud.  Depend on it directly
+    # instead of installing every optional ADK extension.
+    "litellm>=1.83.0",
     "mcp>=1.17.0",
     "fastmcp>=2.12.4",
     "python-dotenv>=1.1.1",

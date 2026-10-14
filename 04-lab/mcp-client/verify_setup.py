@@ -11,23 +11,16 @@ def check_environment():
     """Check if .env file exists and is configured"""
     print("🔍 Checking environment configuration...")
     
-    env_file = Path(".env")
-    if not env_file.exists():
-        print("❌ .env file not found")
-        print("   Run: echo 'GOOGLE_API_KEY=your_key' > .env")
-        return False
-    
-    # Check if GOOGLE_API_KEY is set
     from dotenv import load_dotenv
     load_dotenv()
     
-    api_key = os.getenv("GOOGLE_API_KEY")
-    if not api_key or api_key == "your_google_api_key_here":
-        print("❌ GOOGLE_API_KEY not configured in .env")
-        print("   Get key from: https://aistudio.google.com/apikey")
+    api_key = os.getenv("OLLAMA_API_KEY")
+    if not api_key or api_key == "your_ollama_api_key":
+        print("❌ OLLAMA_API_KEY not configured in .env")
+        print("   Copy .env.example to .env (or export the variable) and set your Ollama Cloud key")
         return False
     
-    print(f"✅ GOOGLE_API_KEY configured ({api_key[:10]}...)")
+    print(f"✅ OLLAMA_API_KEY configured ({api_key[:6]}...)")
     return True
 
 def check_dependencies():
@@ -36,7 +29,7 @@ def check_dependencies():
     
     required_packages = [
         ("google.adk", "Google ADK"),
-        ("google.generativeai", "Google Generative AI"),
+        ("litellm", "LiteLLM (Ollama adapter)"),
         ("mcp", "MCP"),
         ("fastmcp", "FastMCP"),
         ("dotenv", "python-dotenv"),
@@ -54,7 +47,7 @@ def check_dependencies():
     
     if not all_installed:
         print("\n   Install with: uv sync")
-        print("   Or: pip install google-adk google-generativeai mcp fastmcp python-dotenv httpx")
+        print("   Or: pip install 'google-adk[extensions]' mcp fastmcp python-dotenv httpx")
     
     return all_installed
 
