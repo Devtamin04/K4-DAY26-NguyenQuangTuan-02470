@@ -90,3 +90,11 @@ Open http://localhost:8000 in your browser, select `weather_agent`, and ask abou
 | `OLLAMA_API_BASE` | mcp-client/.env | Ollama endpoint (default: `https://ollama.com`) |
 | `PORT` | mcp-server (env) | Override server port (default: 8085) |
 | `MCP_SERVER_URL` | mcp-client/.env | MCP endpoint the agent connects to (default: `http://localhost:8085/mcp`; set to your Cloud Run URL + `/mcp` when deployed) |
+
+## Ảnh minh chứng
+
+Ảnh dưới đây cho thấy luồng chạy hoàn chỉnh: ADK Agent gọi `get_current_weather` thông qua `McpToolset` và trả lời từ dữ liệu WeatherAPI.
+
+![ADK Web gọi MCP Weather tool](screenshots/adk-weather-response.png)
+
+Xem thêm mô tả từng ảnh trong [`screenshots/README.md`](screenshots/README.md).
